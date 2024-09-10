@@ -1,7 +1,7 @@
 name: backend-base.devops-main 
 services:
   backend:
-    image: backend-base-devops-main:latest
+    image: localhost:8082/backend-base-devops-main:latest
     ports:
       -"3000:3001"
     env_file:
