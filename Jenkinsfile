@@ -32,6 +32,7 @@ pipeline {
             steps {
                 sh 'docker build -t backend-base-devops-main:latest .'
                 sh 'docker tag backend-base-devops-main:latest localhost:8082/backend-base-devops-main:latest'
+                sh 'docker login -u admin -p jose'
                 sh 'docker push localhost:8082/backend-base-devops-main:latest'
             }
         }
