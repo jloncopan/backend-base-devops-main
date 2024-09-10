@@ -33,8 +33,10 @@ pipeline {
                 script {
                     docker.withRegistry('http://localhost:8082', 'nexus-key'){
                         sh 'docker build -t backend-base-devops-main:latest .'
-                        sh 'docker tag backend-base-devops-main:latest localhost:8082/backend-base-devops-main:latest'               
+                        sh 'docker tag backend-base-devops-main:latest localhost:8082/backend-base-devops-main:latest'  
+                        sh "docker tag backend-base-devops-main:latest localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"                
                         sh 'docker push localhost:8082/backend-base-devops-main:latest'
+                        sh "docker push localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
                     }
 
                 }
