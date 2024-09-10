@@ -31,6 +31,8 @@ pipeline {
         stage('deploy') {
             steps {
                 sh 'docker build -t backend-base-devops-main:latest .'
+                sh 'docker tag backend-base-devops-main:latest localhost:8082/backend-base-devops-main:latest'
+                sh 'docker push localhost:8082/backend-base-devops-main:latest'
             }
         }
         /*stage ('Ejemplo') {
