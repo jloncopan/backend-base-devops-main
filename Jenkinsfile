@@ -1,11 +1,17 @@
 pipeline {
     agent any
     stages {
-        stage ('Construir y testear') {
+        /*stage ('Construir y testear') {
             agent {
                 docker {
                     image 'node:20.11.1-alpine3.19'
                 }
+            }
+
+        }*/
+        stage ('Ejemplo') {
+            steps{
+                sh 'echo "hola compíta'
             }
 
         }
