@@ -11,7 +11,7 @@ pipeline {
         }*/
         stage ('Ejemplo') {
             steps {
-                sh 'echo "hola compíta'
+                sh 'echo "hola compíta"'
             }
         }
 
