@@ -30,7 +30,7 @@ pipeline {
         }
         stage('deploy') {
             steps {
-                sh 'docker build -t backend-base:latest'
+                sh 'docker build -t backend-base:lastest'
             }
         }
         /*stage ('Ejemplo') {
