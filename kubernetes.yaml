@@ -17,9 +17,12 @@ spec:
     spec:
       containers:
       - name: backend-base-devops-main
-        image: localhost:8082/backend-base-devops-main:latest
+        image: localhost:8082/backend-base-devops-main
+        imagePullPolicy: Always
         ports:
         - containerPort: 3001
+      imagePullSecrets:
+      - name: regcred
 
           
 
