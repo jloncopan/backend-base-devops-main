@@ -8,7 +8,7 @@ import { esPrimo } from "./numeros.js";
 const app = express();
 app.disable("x-powered-by");
 
-//const app = express();
+
 
 app.use(express.json());
 
