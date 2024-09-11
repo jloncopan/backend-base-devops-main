@@ -25,6 +25,11 @@ spec:
             configMapKeyRef:
               name: backend-back
               key: USERNAME
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: backend-back-key
+              key: API_KEY
         ports:
         - containerPort: 3001
       imagePullSecrets:
