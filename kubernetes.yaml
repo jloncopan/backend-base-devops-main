@@ -10,16 +10,16 @@ spec:
   selector:
     matchLabels:
       app: backend-base-devops-main
-    template:
-      metadata:
-        labels:
-          app: backend-base-devops-main
-      spec:
-        containers:
-        - name: backend-base-devops-main
-          image: localhost:8082/backend-base-devops-main:latest
-          ports:
-          - containerPort:3001
+  template:
+    metadata:
+      labels:
+        app: backend-base-devops-main
+    spec:
+      containers:
+      - name: backend-base-devops-main
+        image: localhost:8082/backend-base-devops-main:latest
+        ports:
+        - containerPort:3001
 
           
 
