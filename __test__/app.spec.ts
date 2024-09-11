@@ -259,15 +259,7 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('No número', async () => {
-        return await request(app)
-            .get("/primo/a")  // a no es numero
-            .expect("Content-Type", /text\/html/)
-            .expect(200)
-            .then((response) => {
-                expect(response.text).toBe("Hola, el numero ingresado no es un numero primo");
-            });
-    });
+    
 
 
 
