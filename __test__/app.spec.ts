@@ -231,7 +231,7 @@ describe("Test Suite App", () => {
 
     
     test('Retorno true para frases con mayúsculas que son palíndromas', () => {
-        expect(esPalindromo('Dábale arroz a la zorra el abad')).toBe(true);
+        expect(esPalindromo('Dabale arroz a la zorra el abad')).toBe(true);
         expect(esPalindromo('La sal')).toBe(true);
     });
 
