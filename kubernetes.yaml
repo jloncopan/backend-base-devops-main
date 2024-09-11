@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-base-devops-main-deployment
-  namespace: devops 
   labels:
     app: backend-base-devops-main
 spec:
