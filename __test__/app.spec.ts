@@ -6,10 +6,8 @@ import request from "supertest";
 import { configuration } from "../src/config.js";
 
 describe("Test Suite App", () => { 
-
-
     
-
+    //EndPoints    
     test("endpoint key", async() => {
         return await request(app)
             .get("/key")
@@ -19,14 +17,7 @@ describe("Test Suite App", () => {
         });
     });
 
-    test("endpoint /palindromo", () => {
-        expect(1 + 1).toBe(2);
-    });
-
-    test("endpoint /primo", () => {
-        expect(1 + 1).toBe(2);
-    });
-
+    
     test("test de endpoint /", async () => {
         return await request(app)
             .get("/")
@@ -35,90 +26,36 @@ describe("Test Suite App", () => {
             .then((response) => {
                 expect(response.text).toBe(`Hola, esta api fue configurada por el usuario ${configuration.username}`);
             })
-    });
+    });   
 
-    // Caso 1: Número menor que 2
-    test('debería devolver false para números menores que 2', () => {
-        expect(esPrimo(0)).toBe(false);
-        expect(esPrimo(1)).toBe(false);
-    });
-
-    // Caso 2: Número primo
-    test('debería devolver true para números primos', () => {
-        expect(esPrimo(2)).toBe(true);
-        expect(esPrimo(3)).toBe(true);
-        expect(esPrimo(5)).toBe(true);
-        expect(esPrimo(7)).toBe(true);
-    });
-
-    // Caso 3: Número no primo
-    test('debería devolver false para números no primos', () => {
-        expect(esPrimo(4)).toBe(false);
-        expect(esPrimo(6)).toBe(false);
-        expect(esPrimo(8)).toBe(false);
-        expect(esPrimo(9)).toBe(false);
-    });
-
-    // Caso 1: Frases palíndromas
-    test('debería devolver true para frases palíndromas', () => {
-        expect(esPalindromo('Anita lava la tina')).toBe(true);
-        expect(esPalindromo('A man a plan a canal Panama')).toBe(true);
-        expect(esPalindromo('No lemon no melon')).toBe(true);
-    });
-
-    // Caso 2: Frases no palíndromas
-    test('debería devolver false para frases no palíndromas', () => {
-        expect(esPalindromo('Hello World')).toBe(false);
-        expect(esPalindromo('Testing')).toBe(false);
-        expect(esPalindromo('Palindrome example')).toBe(false);
-    });
-
-    // Caso 3: Frases con espacios
-    test('debería devolver true para frases con espacios que son palíndromas', () => {
-        expect(esPalindromo('A Santa at NASA')).toBe(true);
-        expect(esPalindromo('Was it a car or a cat I saw')).toBe(true);
-    });
-
-    // Caso 4: Frases con mayúsculas
-    test('debería devolver true para frases con mayúsculas que son palíndromas', () => {
-        expect(esPalindromo('Eva can I see bees in a cave')).toBe(true);
-        expect(esPalindromo('Madam In Eden Im Adam')).toBe(true);
-    });
-
-    // Caso 5: Cadena vacía
-    test('debería devolver true para una cadena vacía', () => {
-        expect(esPalindromo('')).toBe(true);
-    });
-
-    // Caso 4: Frases con mayúsculas
-    test('debería devolver false cuando se agregan símbolos', () => {
-        expect(esPalindromo('Eva, can I see bees in a cave?')).toBe(false);
-        expect(esPalindromo('Madam In Eden I´m Adam')).toBe(false);
-    });
-
-    test('Frase vacía', async () => {
+    test('Endpoint  /palindromo: Ingreso vacío', async () => {
         return await request(app)
             .get("/palindromo/")
             .expect("Content-Type", /text\/html/)
             .expect(404)
-            /*.then((response) => {
-                expect(response.text).toBe("Hola, debe enviar una frase");
-            });*/
     });
 
-    test('Frase solo con espacios', async () => {
+    test('Endpoint  /palindromo: Ingreso espacios', async () => {
         return await request(app)
             .get("/palindromo/     ")
             .expect("Content-Type", /text\/html/)
             .expect(404)
-            /*.then((response) => {
-                expect(response.text).toBe("Hola, debe enviar una frase con algun caracter");
-            });*/
     });
 
-    test('Frase con caracteres especiales', async () => {
+    
+    test('Endpoint  /palindromo: Ingreso palindromo con mayúsculas y minúsculas', async () => {
         return await request(app)
-            .get("/palindromo/a%20man,%20a%20plan,%20a%20canal,%20Panama")
+            .get("/palindromo/Anita%20lava%20la%20tina")
+            .expect("Content-Type", /text\/html/)
+            .expect(200)
+            .then((response) => {
+                expect(response.text).toBe("Hola, La frase ingresada es palindromo");
+            });
+    });
+
+    test('Endpoint  /palindromo: Ingreso con símbolos', async () => {
+        return await request(app)
+            .get("/palindromo/Anita%20&lava%20#la%20tina")
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -126,19 +63,10 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Frase con mayúsculas y minúsculas', async () => {
-        return await request(app)
-            .get("/palindromo/Able%20was%20I%20ere%20I%20saw%20Elba")
-            .expect("Content-Type", /text\/html/)
-            .expect(200)
-            .then((response) => {
-                expect(response.text).toBe("Hola, La frase ingresada es palindromo");
-            });
-    });
 
-    test('Frase no palíndromo', async () => {
+    test('Endpoint  /palindromo: Ingreso no es un palíndromo', async () => {
         return await request(app)
-            .get("/palindromo/Hello%20World")
+            .get("/palindromo/hola%20amigo%20dev")
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -146,9 +74,9 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Frase con números y letras', async () => {
+    test('Endpoint  /palindromo: Ingreso solo un caracter', async () => {
         return await request(app)
-            .get("/palindromo/12321")
+            .get("/palindromo/C")
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -156,22 +84,22 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Frase con solo una letra', async () => {
+
+    test('Endpoint  /palindromo: Ingreso solo numeros', async () => {
         return await request(app)
-            .get("/palindromo/a")
+            .get("/palindromo/9876543210123456789")
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
                 expect(response.text).toBe("Hola, La frase ingresada es palindromo");
             });
     });
-    /*test("endpoint /palindromo", () => {
-        expect(1 + 1).toBe(2);
-    });*/
 
-    test('Número negativo', async () => {
+    
+
+    test('Endpoint  /primo: Ingreso negativo', async () => {
         return await request(app)
-            .get("/primo/-1")
+            .get("/primo/-5")
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -179,7 +107,7 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número 0', async () => {
+    test('Endpoint  /primo: Ingreso cero', async () => {
         return await request(app)
             .get("/primo/0")
             .expect("Content-Type", /text\/html/)
@@ -189,7 +117,7 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número 1', async () => {
+    test('Endpoint  /primo: Ingreso uno', async () => {
         return await request(app)
             .get("/primo/1")
             .expect("Content-Type", /text\/html/)
@@ -199,7 +127,7 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número 2 (el primer número primo)', async () => {
+    test('Endpoint  /primo: Ingreso dos, menor número primo', async () => {
         return await request(app)
             .get("/primo/2")
             .expect("Content-Type", /text\/html/)
@@ -209,9 +137,9 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número grande-primo', async () => {
+    test('Endpoint  /primo: Ingreso numero sobre 100000 primo', async () => {
         return await request(app)
-            .get("/primo/7919")  // 7919 es primo
+            .get("/primo/100003")  
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -219,9 +147,9 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número grande-no primo', async () => {
+    test('Endpoint  /primo: Ingreso numero sobre 100000 no primo', async () => {
         return await request(app)
-            .get("/primo/8000")  // 8000 no es primo
+            .get("/primo/100500")  
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -229,9 +157,9 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número par mayor a 2, no primo', async () => {
+    test('Endpoint  /primo: Ingreso par no primo', async () => {
         return await request(app)
-            .get("/primo/10")
+            .get("/primo/18")
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -239,9 +167,9 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número primo', async () => {
+    test('Endpoint  /primo: Ingreso de número primo', async () => {
         return await request(app)
-            .get("/primo/13")  // 13 es primo
+            .get("/primo/13")  
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
@@ -249,14 +177,73 @@ describe("Test Suite App", () => {
             });
     });
 
-    test('Número no primo', async () => {
+    test('Endpoint  /primo: Ingreso de número impar no primo', async () => {
         return await request(app)
-            .get("/primo/9")  // 9 no es primo
+            .get("/primo/15")  
             .expect("Content-Type", /text\/html/)
             .expect(200)
             .then((response) => {
                 expect(response.text).toBe("Hola, el numero ingresado no es un numero primo");
             });
+    });
+
+     //Métodos
+    test('Retorno false para números menores que 2', () => {
+        expect(esPrimo(0)).toBe(false);
+        expect(esPrimo(1)).toBe(false);
+    });
+
+    
+    test('Retorno true para números primos', () => {
+        expect(esPrimo(2)).toBe(true);
+        expect(esPrimo(3)).toBe(true);
+        expect(esPrimo(5)).toBe(true);
+        expect(esPrimo(7)).toBe(true);
+    });
+
+    
+    test('Retorno false para números no primos', () => {
+        expect(esPrimo(4)).toBe(false);
+        expect(esPrimo(6)).toBe(false);
+        expect(esPrimo(8)).toBe(false);
+        expect(esPrimo(9)).toBe(false);
+    });
+
+    
+    test('Retorno true para frases palíndromas', () => {
+        expect(esPalindromo('arenera')).toBe(true);
+        expect(esPalindromo('aibofobia')).toBe(true);
+        expect(esPalindromo('oso')).toBe(true);
+    });
+
+    
+    test('Retorno false para frases no palíndromas', () => {
+        expect(esPalindromo('hola Mundo')).toBe(false);
+        expect(esPalindromo('pruebas')).toBe(false);
+        expect(esPalindromo('al igual que otros ejemplos')).toBe(false);
+    });
+
+    
+    test('Retorno true para frases con espacios que son palíndromas', () => {
+        expect(esPalindromo('la ruta natural')).toBe(true);
+        expect(esPalindromo('yo dono rosas oro no doy')).toBe(true);
+    });
+
+    
+    test('Retorno true para frases con mayúsculas que son palíndromas', () => {
+        expect(esPalindromo('Dábale arroz a la zorra el abad')).toBe(true);
+        expect(esPalindromo('La sal')).toBe(true);
+    });
+
+    
+    test('Retorno true para una cadena vacía', () => {
+        expect(esPalindromo('')).toBe(true);
+    });
+
+    
+    test('Retorno false cuando se agregan símbolos', () => {
+        expect(esPalindromo('Anita, lava la tina')).toBe(false);
+        expect(esPalindromo('La ruta natural:')).toBe(false);
     });
 
     
