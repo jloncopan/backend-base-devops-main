@@ -86,12 +86,7 @@ pipeline {
                 }
             }
         }
-
-        /*stage ('Ejemplo') {
-            steps {
-                sh 'echo "hola compíta"'
-            }
-        }*/
+   
 
     }
 
