@@ -87,13 +87,13 @@ pipeline {
             }
         }
 
-        /*stage ('Ejemplo') {
+        stage('Actualizar imagen en kubernates') {
             steps {
-                sh 'echo "hola compíta"'
+                script {                   
+                    sh "kubectl set image deployment backend-base-devops-main-deployment backend-base-devops-main=localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER} "
+                }
             }
-        }*/
+        }
 
     }
-
-
 }
