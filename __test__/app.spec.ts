@@ -5,8 +5,44 @@ import app from "../src/server.js";
 import request from "supertest";
 import { configuration } from "../src/config.js";
 
-describe("Test Suite App", () => {
+describe("Test Suite App", () => { 
 
+
+    test("endpoint /", async() => {
+        return await request(app)
+            .get("/")
+            .expect(200)
+            .then((response) => {
+                expect(response.text).toBe(`Hola, esta api fue configurada por el usuario ${configuration.username}`);
+        });
+    });
+
+    test("endpoint key", async() => {
+        return await request(app)
+            .get("/key")
+            .expect(200)
+            .then((response) => {
+                expect(response.text).toBe(`Hola, esta api contiene la siguiente api-key: ${configuration.apiKey}`);
+        });
+    });
+
+    test("endpoint /palindromo", () => {
+        expect(1 + 1).toBe(2);
+    });
+
+    test("endpoint /primo", () => {
+        expect(1 + 1).toBe(2);
+    });
+
+    test("test de endpoint /", async () => {
+        return await request(app)
+            .get("/")
+            .expect("Content-Type", /text/)
+            .expect(200)
+            .then((response) => {
+                expect(response.text).toBe(`Hola, esta api fue configurada por el usuario ${configuration.username}`);
+            })
+    });
 
     // Caso 1: Número menor que 2
     test('debería devolver false para números menores que 2', () => {
@@ -70,30 +106,4 @@ describe("Test Suite App", () => {
 
 
 
-
-    test("endpoint /", () => {
-        expect(1 + 1).toBe(2);
-    });
-
-    test("endpoint key", () => {
-        expect(1 + 1).toBe(2);
-    });
-
-    test("endpoint /palindromo", () => {
-        expect(1 + 1).toBe(2);
-    });
-
-    test("endpoint /primo", () => {
-        expect(1 + 1).toBe(2);
-    });
-
-    test("test de endpoint /", async () => {
-        return await request(app)
-            .get("/")
-            .expect("Content-Type", /text/)
-            .expect(200)
-            .then((response) => {
-                expect(response.text).toBe(`Hola, esta api fue configurada por el usuario ${configuration.username}`);
-            })
-    });
 });
