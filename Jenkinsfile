@@ -50,14 +50,14 @@ pipeline {
                         }
                     }
                 }
-               /* stage('Quality Gate')
+                stage('Puerta de calidad')
                 {
                     steps {
-                        timeout(time: 25, unit: 'SECONDS') {
+                        timeout(time: 1, unit: 'MINUTES') {
                             waitForQualityGate abortPipeline: true
                         }
                     }
-                }*/
+                }
             }
         }
 
@@ -75,7 +75,7 @@ pipeline {
                 }
             }
         }
-        stage('deploy') {
+        stage('Despliegue') {
             steps {
                 script {
                     docker.withRegistry('http://localhost:8082', 'nexus-key'){
