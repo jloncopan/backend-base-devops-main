@@ -3,7 +3,12 @@ import { configuration } from "./config.js";
 import { esPalindromo } from "./palindromo.js";
 import { esPrimo } from "./numeros.js";
 
-const app = express();
+
+
+let app = express();
+app.disable("x-powered-by");
+
+//const app = express();
 
 app.use(express.json());
 

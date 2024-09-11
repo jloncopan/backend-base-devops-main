@@ -61,6 +61,12 @@ describe("Test Suite App", () => {
         expect(esPalindromo('')).toBe(true);
     });
 
+    // Caso 4: Frases con mayúsculas
+    test('debería devolver false cuando se agregan símbolos', () => {
+        expect(esPalindromo('Eva, can I see bees in a cave?')).toBe(false);
+        expect(esPalindromo('Madam In Eden I´m Adam')).toBe(false);
+    });
+
 
 
 
