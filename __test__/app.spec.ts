@@ -1,5 +1,6 @@
 import { describe, test, expect } from "@jest/globals";
 import { esPrimo} from "../src/numeros.js";
+import { esPalindromo} from "../src/palindromo.js";
 import app from "../src/server.js";
 import request from "supertest";
 import { configuration } from "../src/config.js";
@@ -27,6 +28,37 @@ describe("Test Suite App", () => {
         expect(esPrimo(6)).toBe(false);
         expect(esPrimo(8)).toBe(false);
         expect(esPrimo(9)).toBe(false);
+    });
+
+    // Caso 1: Frases palíndromas
+    test('debería devolver true para frases palíndromas', () => {
+        expect(esPalindromo('Anita lava la tina')).toBe(true);
+        expect(esPalindromo('A man a plan a canal Panama')).toBe(true);
+        expect(esPalindromo('No lemon no melon')).toBe(true);
+    });
+
+    // Caso 2: Frases no palíndromas
+    test('debería devolver false para frases no palíndromas', () => {
+        expect(esPalindromo('Hello World')).toBe(false);
+        expect(esPalindromo('Testing')).toBe(false);
+        expect(esPalindromo('Palindrome example')).toBe(false);
+    });
+
+    // Caso 3: Frases con espacios
+    test('debería devolver true para frases con espacios que son palíndromas', () => {
+        expect(esPalindromo('A Santa at NASA')).toBe(true);
+        expect(esPalindromo('Was it a car or a cat I saw')).toBe(true);
+    });
+
+    // Caso 4: Frases con mayúsculas
+    test('debería devolver true para frases con mayúsculas que son palíndromas', () => {
+        expect(esPalindromo('Eva, can I see bees in a cave?')).toBe(true);
+        expect(esPalindromo('Madam In Eden I’m Adam')).toBe(true);
+    });
+
+    // Caso 5: Cadena vacía
+    test('debería devolver true para una cadena vacía', () => {
+        expect(esPalindromo('')).toBe(true);
     });
 
 
