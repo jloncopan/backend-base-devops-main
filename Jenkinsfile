@@ -3,7 +3,9 @@ pipeline {
     environment {
         USERNAME ='cmd'
     }
-    
+    options {
+        disableConcurrentBuilds()
+    }
     stages {
         stage ('Construir y testear') {
             agent {
@@ -84,6 +86,7 @@ pipeline {
                 }
             }
         }
+
    
 
     }
