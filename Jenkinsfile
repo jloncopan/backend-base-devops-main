@@ -80,19 +80,22 @@ pipeline {
                 script {
                     docker.withRegistry('http://localhost:8082', 'nexus-key'){
                         sh 'docker compose pull'
-                        sh 'docker compose up --force-recreate --build -d'    
-                        sh "kubectl set image deployment backend-base-devops-main-deployment backend-base-devops-main=localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"                   
+                        sh 'docker compose up --force-recreate --build -d'
                     }
 
                 }
             }
         } 
-       /* stage('Actualiza imagen kubernetes') {
+        stage('Actualiza imagen kubernetes') {
             steps {
-                script {                    
-                    sh "kubectl set image deployment backend-base-devops-main-deployment backend-base-devops-main=localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+                script { 
+                    withKubeConfig('http://localhost:8082', 'nexus-key'){                        
+                        sh "kubectl set image deployment backend-base-devops-main-deployment backend-base-devops-main=localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"                   
+                    }
+
+                    //sh "kubectl set image deployment backend-base-devops-main-deployment backend-base-devops-main=localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
                 }
             }
-        }*/ 
+        }
     }
 }
