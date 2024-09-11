@@ -89,7 +89,7 @@ pipeline {
         stage('Actualiza imagen kubernetes') {
             steps {
                 script { 
-                    withKubeConfig('http://localhost:8082', 'nexus-key'){                        
+                    docker.withRegistry('http://localhost:8082', 'nexus-key'){                        
                         sh "kubectl set image deployment backend-base-devops-main-deployment backend-base-devops-main=localhost:8082/backend-base-devops-main:${env.BRANCH_NAME}-${env.BUILD_NUMBER}"                   
                     }
 
