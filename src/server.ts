@@ -5,7 +5,7 @@ import { esPrimo } from "./numeros.js";
 
 
 
-let app = express();
+const app = express();
 app.disable("x-powered-by");
 
 //const app = express();
